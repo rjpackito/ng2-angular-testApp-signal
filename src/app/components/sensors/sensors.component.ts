@@ -12,10 +12,12 @@ export class SensorsComponent implements OnInit {
     intervalId = null;
 
     constructor (private _sensorService: SensorService) {}
+
     ngOnInit() {
+        this.items = this._sensorService.getSensors(true, 1000);
         this.changeMode();
     }
-    
+
     public changeMode() {
         if (!this.isModeAuto) {
             clearInterval(this.intervalId);
@@ -26,6 +28,7 @@ export class SensorsComponent implements OnInit {
             }, 1000);
         }
     }
+
     public manualUpdate() {
         this.items = this._sensorService.getSensors(false);
     }

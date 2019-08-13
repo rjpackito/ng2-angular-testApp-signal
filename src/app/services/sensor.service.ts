@@ -7,6 +7,11 @@ const LOCAL_STORAGE_SENSORS_INFO = "SENSORS_INFO";
 export class SensorService {
     private sensorsInfo: ISensorsInfo;
 
+    getSensor(key: string): ISensor {
+        if (localStorage.getItem(LOCAL_STORAGE_SENSORS_INFO))
+            this.sensorsInfo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_SENSORS_INFO));
+        return this.sensorsInfo.sensors.find(s => s.key === key);
+    }
     getSensors(isModeAuto: boolean, timeout?: number): ISensor[] {
         if (localStorage.getItem(LOCAL_STORAGE_SENSORS_INFO)) {
             this.sensorsInfo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_SENSORS_INFO));
@@ -31,7 +36,7 @@ export class SensorService {
         for (let index = 0; index < 5000; index++) {
             if (isNewInfo) {
                 this.sensorsInfo.sensors.push({
-                    key: `Sensors_${Utility.formatNumber(index + 1)}`,
+                    key: `Sensor_${Utility.formatNumber(index + 1)}`,
                     value: null,
                     updateInterval: Utility.randomValueForUpdateInterval(),
                     time: new Date()

@@ -1,0 +1,24 @@
+<h2 class="text-center">
+    <span>Sensors: {{sensor.key}}</span>
+</h2>
+<form class="container">
+    <div class="form-group row">
+        <label for="key" class="col-sm-2 col-form-label">Key</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control" id="key" [value]="sensor.key">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="key" class="col-sm-2 col-form-label">Value</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control" id="key" [value]="sensor.value">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="key" class="col-sm-2 col-form-label">Time</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control" id="key" [value]="sensor.time">
+        </div>
+    </div>
+    <button class="btn btn-light" [routerLink]="['/sensors']">Go back to Sensors</button>
+</form>
