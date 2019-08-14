@@ -24,12 +24,24 @@ export class SensorsComponent implements OnInit {
         }
         else {
             this.intervalId = setInterval(() => {
-                this.items = this._sensorService.getSensors(true, 1000);
+                this.updateItems(this._sensorService.getSensors(true, 1000));
             }, 1000);
         }
     }
 
     public manualUpdate() {
-        this.items = this._sensorService.getSensors(false);
+        this.updateItems(this._sensorService.getSensors(false));
+    }
+    
+    private updateItems(items: ISensor[]){
+        let updateDict = items.map((item,index)=>{
+            let oldIndex= this.items.findIndex(oldItem=>(item.key==oldItem.key && oldItem.value!=item.value))
+            if(oldIndex!=-1)
+                return {old: oldIndex,new: index};
+        }).filter(s=>s);
+        updateDict.forEach(indexes=> {
+            this.items[indexes.old].value=items[indexes.new].value;
+            this.items[indexes.old].time=items[indexes.new].time
+        });
     }
 }
